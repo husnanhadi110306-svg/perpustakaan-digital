@@ -1,0 +1,118 @@
+body{
+    background: #0f172a;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container{
+    width: 90%;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.card{
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+input{
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 10px;
+}
+
+button{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: cyan;
+    color: black;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+table{
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+table tr td,
+table tr th{
+    border: 1px solid gray;
+    padding: 10px;
+}
+
+img{
+    border-radius: 10px;
+}
+.card{
+    transition: 0.3s;
+    border-radius: 20px;
+}
+
+.card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 0 25px cyan;
+}
+
+table{
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.btn{
+    border-radius: 12px;
+}
+
+input{
+    border-radius: 12px !important;
+}
+body{
+    background: linear-gradient(135deg,#000428,#004e92);
+    min-height: 100vh;
+}
+
+.card{
+    background: rgba(255,255,255,0.08) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+table{
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+}
+
+.sidebar{
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(15px);
+}
+
+.sidebar .btn:hover{
+    background: cyan !important;
+    color: black !important;
+    transform: translateX(5px);
+}
+
+h1{
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+@media(max-width:768px){
+
+    .sidebar{
+        width:100% !important;
+        min-height:auto !important;
+    }
+
+    body{
+        flex-direction:column;
+    }
+
+}

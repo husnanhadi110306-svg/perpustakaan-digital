@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        body{
+            background:#071739;
+            color:white;
+        }
+
+        .card-buku{
+            background:#0d234f;
+            border-radius:20px;
+            padding:15px;
+            box-shadow:0 0 15px rgba(0,0,0,0.3);
+            transition:0.3s;
+        }
+
+        .card-buku:hover{
+            transform:scale(1.03);
+        }
+
+        img{
+            height:250px;
+            object-fit:cover;
+            border-radius:10px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between">
+
+        <div>
+            <h1>Halo, {{ session['username'] }} 👋</h1>
+            <p>Dashboard user perpustakaan</p>
+        </div>
+        <a href="/favorite-list" class="btn btn-warning mb-4">
+    ❤️ Favorite Saya
+</a>
+<a href="/pinjam-list" class="btn btn-info mb-4">
+    📚 Buku Dipinjam
+</a>
+
+        <div>
+            <a href="/logout" class="btn btn-danger">
+                Logout
+            </a>
+        </div>
+
+    </div>
+
+    <hr class="text-white">
+
+    <form method="GET" class="mb-4">
+
+        <input
+            type="text"
+            name="cari"
+            class="form-control"
+            placeholder="Cari buku..."
+        >
+
+    </form>
+
+    <div class="row">
+
+        {% for b in buku_list %}
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card-buku">
+
+                <img
+                    src="{{ url_for('static', filename='uploads/' + b[3]) }}"
+                    class="w-100 mb-3"
+                >
+
+                <h4>{{ b[1] }}</h4>
+
+                <p>Penulis : {{ b[2] }}</p>
+
+                <div class="d-flex gap-2">
+
+                    <a
+                        href="{{ url_for('static', filename='pdf/' + b[4]) }}"
+                        target="_blank"
+                        class="btn btn-primary"
+                    >
+                        Baca
+                    </a>
+
+                    <a
+                        href="{{ url_for('static', filename='pdf/' + b[4]) }}"
+                        download
+                        class="btn btn-success"
+                    >
+                        Download
+                    </a>
+<a href="/favorite/{{ b[0] }}" class="btn btn-warning">
+    Favorite
+</a>
+<a
+    href="/pinjam/{{ b[0] }}"
+    class="btn btn-info"
+>
+    Pinjam
+</a>
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+</body>
+</html>

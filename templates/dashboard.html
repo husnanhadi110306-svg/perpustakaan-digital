@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dashboard Perpustakaan</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-dark text-light d-flex">
+    <nav class="navbar navbar-dark bg-black px-3 w-100 position-fixed top-0 shadow">
+    <a class="navbar-brand text-light" href="#">
+        📚 Perpustakaan Digital
+    </a>
+</nav>
+    <!-- SIDEBAR -->
+<div class="sidebar p-4" style="width:250px; min-height:100vh;">
+
+    <h3 class="text-info mb-4">
+        📚 Admin
+    </h3>
+
+    <a href="/dashboard" class="btn btn-dark w-100 mb-3 text-start">
+        🏠 Dashboard
+    </a>
+
+    <a href="/tambah" class="btn btn-dark w-100 mb-3 text-start">
+        ➕ Tambah Buku
+    </a>
+
+    <a href="/favorite-list" class="btn btn-dark w-100 mb-3 text-start">
+        ❤️ Favorite
+    </a>
+
+    <a href="/logout" class="btn btn-danger w-100 mt-5">
+        Logout
+    </a>
+
+</div>
+</body>
+
+<div class="container-fluid p-4 w-100"style="margin-top:70px;">
+    <div class="card shadow-lg border-0">
+
+        <div class="card-body bg-dark text-light">
+
+            <h1 class="text-success">
+                📚 Dashboard Perpustakaan
+            </h1>
+            <div class="row mt-4 mb-4">
+
+    <div class="col-md-3">
+        <div class="card bg-primary text-light shadow-lg border-0">
+            <div class="card-body">
+                <h5>Total Buku</h5>
+                <h2>{{ total_buku }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-success text-light shadow-lg border-0">
+            <div class="card-body">
+                <h5>Total User</h5>
+                <h2>{{ total_user }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-warning text-dark shadow-lg border-0">
+            <div class="card-body">
+                <h5>Total Favorite</h5>
+                <h2>{{ total_favorite }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-danger text-light shadow-lg border-0">
+            <div class="card-body">
+                <h5>Total Dipinjam</h5>
+                <h2>{{ total_pinjam }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+            <p class="text-secondary">
+                Selamat datang admin 😎
+            </p>
+
+            <hr>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for msg in messages %}
+
+                        <div class="alert alert-success">
+                            {{ msg }}
+                        </div>
+
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="mb-3">
+
+                <a href="/" class="btn btn-primary">
+                    Home
+                </a>
+
+                <a href="/logout" class="btn btn-danger">
+                    Logout
+                </a>
+
+            </div>
+
+            <a href="/tambah" class="btn btn-success mb-3">
+                + Tambah Buku
+            </a>
+
+            <form method="GET" action="/dashboard" class="mb-3">
+
+                <input
+                    type="text"
+                    name="search"
+                    class="form-control"
+                    placeholder="Cari buku..."
+                >
+
+                <button class="btn btn-info mt-2">
+                    Cari
+                </button>
+
+            </form>
+
+            <div class="table-responsive">
+
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nama Buku</th>
+            <th>Penulis</th>
+            <th>Gambar</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for b in buku %}
+        <tr>
+            <td>{{ b[0] }}</td>
+            <td>{{ b[1] }}</td>
+            <td>{{ b[2] }}</td>
+
+            <td>
+                <img src="{{ url_for('static', filename='uploads/' + b[3]) }}"
+                     width="80"
+                     height="100"
+                     style="object-fit: cover; border-radius: 5px;">
+            </td>
+
+            <td>
+                <a href="/edit/{{ b[0] }}" class="btn btn-warning btn-sm">
+                    Edit
+                </a>
+
+                <a href="/hapus/{{ b[0] }}" class="btn btn-danger btn-sm">
+                    Hapus
+                </a>
+                <a href="/favorite/{{ b[0] }}" class="btn btn-info btn-sm">
+    Favorite
+</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+        </div>
+
+    </div>
+<hr class="text-light mt-5">
+
+<h3 class="text-light mb-4">Daftar User</h3>
+
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Username</th>
+            <th>NIM</th>
+            <th>Whatsapp</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ user[1] }}</td>
+            <td>{{ user[2] }}</td>
+            <td>{{ user[3] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+</div>
+</body>
+</html>
