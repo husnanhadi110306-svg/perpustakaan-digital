@@ -12,6 +12,10 @@ app.secret_key = 'perpustakaan'
 def baca(filename):
     return send_from_directory('/tmp/pdf', filename)
 
+@app.route('/gambar/<filename>')
+def gambar(filename):
+    return send_from_directory('/tmp/uploads', filename)
+
 UPLOAD_FOLDER = '/tmp/uploads'
 PDF_FOLDER = '/tmp/pdf'
 
