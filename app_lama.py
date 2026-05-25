@@ -8,8 +8,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.secret_key = 'perpustakaan'
 
-UPLOAD_FOLDER = 'static/uploads'
-PDF_FOLDER = 'static/pdf'
+UPLOAD_FOLDER = '/tmp/uploads'
+PDF_FOLDER = '/tmp/pdf'
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['PDF_FOLDER'] = PDF_FOLDER
