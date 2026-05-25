@@ -76,49 +76,51 @@
 
         {% for b in buku_list %}
 
-        <div class="col-md-4 mb-4">
+        <div class="col-6 col-md-4 col-lg-3 mb-4">
 
-            <div class="card-buku">
+    <div class="card-buku p-2">
 
-                <img
-                    src="/gambar/{{ b[3] }}"
-                >
+        <img
+            src="{{ url_for('static', filename='uploads/' + b[3]) }}"
+            class="img-fluid rounded mb-2"
+            style="height:220px; object-fit:cover; width:100%;"
+        >
 
-                <h4>{{ b[1] }}</h4>
+        <h6>{{ b[1] }}</h6>
 
-                <p>Penulis : {{ b[2] }}</p>
+        <p class="small">
+            Penulis : {{ b[2] }}
+        </p>
 
-                <div class="d-flex gap-2">
+        <div class="d-flex flex-wrap gap-1">
 
-                    <a
-                        href="/baca/{{ b[4] }}"
-                        target="_blank"
-                        class="btn btn-primary"
-                    >
-                        Baca
-                    </a>
+            <a href="/baca/{{ b[4] }}"
+               target="_blank"
+               class="btn btn-primary btn-sm">
+               Baca
+            </a>
 
-                    <a
-                        href="{{ url_for('static', filename='pdf/' + b[4]) }}"
-                        download
-                        class="btn btn-success"
-                    >
-                        Download
-                    </a>
-<a href="/favorite/{{ b[0] }}" class="btn btn-warning">
-    Favorite
-</a>
-<a
-    href="/pinjam/{{ b[0] }}"
-    class="btn btn-info"
->
-    Pinjam
-</a>
-                </div>
+            <a href="{{ url_for('static', filename='pdf/' + b[4]) }}"
+               download
+               class="btn btn-success btn-sm">
+               Download
+            </a>
 
-            </div>
+            <a href="/favorite/{{ b[0] }}"
+               class="btn btn-warning btn-sm">
+               Favorite
+            </a>
+
+            <a href="/pinjam/{{ b[0] }}"
+               class="btn btn-info btn-sm">
+               Pinjam
+            </a>
 
         </div>
+
+    </div>
+
+</div>
 
         {% endfor %}
 
