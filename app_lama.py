@@ -289,6 +289,7 @@ def tambah():
         """, (nama,penulis,gambar_name,pdf_name))
 
         conn.commit()
+        cursor.close()
 
         flash('Buku berhasil ditambahkan')
 
