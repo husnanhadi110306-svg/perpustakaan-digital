@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "app_lama.py.py",
+      "src": "app_lama.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "app_lama.py.py"
+      "dest": "app_lama.py"
     }
   ]
 }
