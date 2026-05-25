@@ -208,6 +208,11 @@ def logout():
 
     session.clear()
 
+    return redirect('/user_login')
+
+@app.route('/logout_admin')
+def logout_admin():
+    session.clear()
     return redirect('/login')
 
 # =========================
