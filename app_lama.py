@@ -424,19 +424,6 @@ def pinjam_list():
         'pinjam.html',
         pinjam_buku=pinjam_buku
     )
-
-# =========================
-# BACA PDF
-# =========================
-
-@app.route('/baca/<int:id>')
-def baca(id):
-
-    cursor.execute("SELECT * FROM buku WHERE id=?", (id,))
-    buku = cursor.fetchone()
-
-    return redirect('/static/pdf/' + buku[4])
-
 # =========================
 # RUN
 # =========================
