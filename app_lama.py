@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, flash
+from flask import Flask, render_template, request, redirect, session, flash, send_from_directory
 import sqlite3
 import os
 from datetime import datetime, timedelta
@@ -7,6 +7,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = 'perpustakaan'
+
+@app.route('/baca/<filename>')
+def baca(filename):
+    return send_from_directory('/tmp/pdf', filename)
 
 UPLOAD_FOLDER = '/tmp/uploads'
 PDF_FOLDER = '/tmp/pdf'
