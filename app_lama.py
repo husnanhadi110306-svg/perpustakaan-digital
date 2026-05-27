@@ -19,6 +19,10 @@ def gambar(filename):
 UPLOAD_FOLDER = '/tmp/uploads'
 PDF_FOLDER = '/tmp/pdf'
 
+app.config['UPLOAD_FOLDER'] = 'uploads'
+app.config['PDF_FOLDER'] = 'pdf'
+app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['PDF_FOLDER'] = PDF_FOLDER
 
