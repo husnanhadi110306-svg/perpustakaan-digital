@@ -301,8 +301,10 @@ def tambah():
         gambar = request.files['gambar']
         pdf = request.files['pdf']
 
-        gambar_name = secure_filename(gambar.filename)
-        pdf_name = secure_filename(pdf.filename)
+        from datetime import datetime
+
+        gambar_name = f"{datetime.now().timestamp()}_{secure_filename(gambar.filename)}"
+        pdf_name = f"{datetime.now().timestamp()}_{secure_filename(pdf.filename)}"
 
         supabase.storage.from_("books").upload(
         f"gambar/{gambar_name}",
