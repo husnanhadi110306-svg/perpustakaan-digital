@@ -1,3 +1,10 @@
+from supabase import create_client
+
+SUPABASE_URL = "https://ougnllblbwrzewqgskle.supabase.co"
+SUPABASE_KEY = "sb_publishable_4HOP2wck9O7MoKdOjkYAsw_uR9kIOgf"
+
+supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+
 from flask import Flask, render_template, request, redirect, session, flash, send_from_directory
 import sqlite3
 import os
@@ -21,7 +28,8 @@ PDF_FOLDER = '/tmp/pdf'
 
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['PDF_FOLDER'] = 'pdf'
-app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
+app.config['MAX_CONTENT_LENGTH'] = 10
+* 1024 * 1024
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['PDF_FOLDER'] = PDF_FOLDER
@@ -297,15 +305,24 @@ def tambah():
         gambar_name = secure_filename(gambar.filename)
         pdf_name = secure_filename(pdf.filename)
 
-        gambar.save(os.path.join(app.config['UPLOAD_FOLDER'], gambar_name))
-        pdf.save(os.path.join(app.config['PDF_FOLDER'], pdf_name))
+        supabase.storage.from_("books").upload(
+        f"gambar/{gambar_name}",
+        gambar.read(),
+        {"content-type": gambar.content_type}
+        )
 
-        cursor.execute("""
-        INSERT INTO buku(nama,penulis,gambar,pdf)
-        VALUES(?,?,?,?)
-        """, (nama,penulis,gambar_name,pdf_name))
+        supabase.storage.from_("books").upload(
+        f"pdf/{pdf_name}",
+        pdf.read(),
+        {"content-type": "application/pdf"}
+        )
 
-        conn.commit()
+        supabase.table("buku").insert({
+            "nama": nama,
+            "penulis": penulis,
+            "gambar": gambar_name,
+            "pdf": pdf_name
+        }).execute()
     
         flash('Buku berhasil ditambahkan')
 
