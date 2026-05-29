@@ -21,43 +21,44 @@
 
         {% for b in favorit %}
 
-        <div class="col-md-4 mb-4">
+<div class="col-md-4 mb-4">
 
-            <div class="card bg-secondary text-light h-100">
+    <div class="card bg-secondary text-light h-100">
 
-                <img
-                    src="{{ url_for('static', filename='uploads/' + b[3]) }}"
-                    class="card-img-top"
-                    style="height:250px; object-fit:cover;"
-                >
+        <img
+            src="https://ougnllblbwrzewqgskle.supabase.co/storage/v1/object/public/books/gambar/{{ b.gambar }}"
+            class="card-img-top"
+            style="height:250px; object-fit:cover;"
+        >
 
-                <div class="card-body">
+        <div class="card-body">
 
-                    <h4>{{ b[1] }}</h4>
+            <h4>{{ b.nama }}</h4>
 
-                    <p>Penulis : {{ b[2] }}</p>
+            <p>Penulis : {{ b.penulis }}</p>
 
-                    <a
-                        href="{{ url_for('static', filename='pdf/' + b[4]) }}"
-                        target="_blank"
-                        class="btn btn-primary"
-                    >
-                        Baca
-                    </a>
-                    <a
-    href="/hapus-favorite/{{ b[0] }}"
-    class="btn btn-danger"
->
-    Hapus
-</a>
+            <a
+                href="https://ougnllblbwrzewqgskle.supabase.co/storage/v1/object/public/books/pdf/{{ b.pdf }}"
+                target="_blank"
+                class="btn btn-primary"
+            >
+                Baca
+            </a>
 
-                </div>
-
-            </div>
+            <a
+                href="/hapus-favorite/{{ b.id }}"
+                class="btn btn-danger"
+            >
+                Hapus
+            </a>
 
         </div>
 
-        {% endfor %}
+    </div>
+
+</div>
+
+{% endfor %}
 
     </div>
 

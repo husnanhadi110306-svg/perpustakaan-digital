@@ -21,39 +21,39 @@
 
     <div class="row">
 
-        {% for b in pinjam_buku %}
+       {% for b in pinjam_buku %}
 
-        <div class="col-md-4 mb-4">
+<div class="col-md-4 mb-4">
 
-            <div class="card bg-secondary text-light">
+    <div class="card bg-secondary text-light">
 
-                <img
-                    src="{{ url_for('static', filename='uploads/' + b[3]) }}"
-                    class="card-img-top"
-                    style="height:250px; object-fit:cover;"
-                >
+        <img
+            src="https://ougnllblbwrzewqgskle.supabase.co/storage/v1/object/public/books/gambar/{{ b.gambar }}"
+            class="card-img-top"
+            style="height:250px; object-fit:cover;"
+        >
 
-                <div class="card-body">
+        <div class="card-body">
 
-                    <h4>{{ b[1] }}</h4>
+            <h4>{{ b.nama }}</h4>
 
-                    <p>Penulis : {{ b[2] }}</p>
+            <p>Penulis : {{ b.penulis }}</p>
 
-                    <a
-                        href="{{ url_for('static', filename='pdf/' + b[4]) }}"
-                        target="_blank"
-                        class="btn btn-primary"
-                    >
-                        Baca
-                    </a>
-
-                </div>
-
-            </div>
+            <a
+                href="https://ougnllblbwrzewqgskle.supabase.co/storage/v1/object/public/books/pdf/{{ b.pdf }}"
+                target="_blank"
+                class="btn btn-primary"
+            >
+                Baca
+            </a>
 
         </div>
 
-        {% endfor %}
+    </div>
+
+</div>
+
+{% endfor %}
 
     </div>
 
