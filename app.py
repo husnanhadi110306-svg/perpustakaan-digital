@@ -439,17 +439,24 @@ def pinjam_list():
 
     user_id = session['id']
 
-    cursor.execute("""
-    SELECT buku.*
-    FROM pinjam
-    JOIN buku ON pinjam.buku_id = buku.id
-    WHERE pinjam.user_id=?
-    """, (user_id,))
+    cursor.execute(
+        "SELECT buku_id FROM pinjam WHERE user_id=?",
+        (user_id,)
+    )
 
-    pinjam_buku = cursor.fetchall()
+    ids = [x[0] for x in cursor.fetchall()]
+
+    pinjam_buku = []
+
+    if ids:
+        res = supabase.table("buku").select("*").execute()
+
+        for b in res.data:
+            if b["id"] in ids:
+                pinjam_buku.append(b)
 
     return render_template(
-        'pinjam.html',
+        "pinjam.html",
         pinjam_buku=pinjam_buku
     )
 # =========================
@@ -468,17 +475,24 @@ def favorite_list():
 
     user_id = session['id']
 
-    cursor.execute("""
-        SELECT buku.*
-        FROM favorite
-        JOIN buku ON favorite.buku_id = buku.id
-        WHERE favorite.user_id=?
-    """, (user_id,))
+    cursor.execute(
+        "SELECT buku_id FROM favorite WHERE user_id=?",
+        (user_id,)
+    )
 
-    favorit = cursor.fetchall()
+    ids = [x[0] for x in cursor.fetchall()]
+
+    favorit = []
+
+    if ids:
+        res = supabase.table("buku").select("*").execute()
+
+        for b in res.data:
+            if b["id"] in ids:
+                favorit.append(b)
 
     return render_template(
-        'favorite.html',
+        "favorite.html",
         favorit=favorit
     )
 # =========================
