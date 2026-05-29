@@ -140,3 +140,20 @@ h1{
     }
 
 }
+
+.card-buku{
+    background:#0d234f;
+    border-radius:15px;
+    padding:12px;
+    height:100%;
+}
+
+.card-buku img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.row{
+    margin-top:20px;
+}

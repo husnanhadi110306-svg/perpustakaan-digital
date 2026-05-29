@@ -72,47 +72,48 @@
 
     </form>
 
-    <div class="row">
+    <div class="row g-4">
 
-        {% for b in buku_list %}
+{% for b in buku_list %}
 
-        <div class="col-6 col-md-4 col-lg-3 mb-4">
+<div class="col-6 col-md-4 col-lg-3">
 
-    <div class="card-buku p-2">
+    <div class="card-buku h-100">
 
         <img
-    src="https://ougnllblbwrzewqgskle.supabase.co/storage/v1/object/public/books/gambar/{{ b.gambar }}"
-    class="img-fluid rounded mb-2"
-    style="height:220px; object-fit:cover; width:100%;"
->
+            src="https://ougnllblbwrzewqgskle.supabase.co/storage/v1/object/public/books/gambar/{{ b.gambar }}"
+            class="img-fluid rounded mb-2"
+            style="height:220px;width:100%;object-fit:cover;"
+        >
 
-<h6>{{ b.nama }}</h6>
+        <h6>{{ b.nama }}</h6>
 
-<p class="small">
-    Penulis : {{ b.penulis }}
-</p>
+        <p class="small">
+            Penulis : {{ b.penulis }}
+        </p>
 
-<a href="https://ougnllblbwrzewqgskle.supabase.co/storage/v1/object/public/books/pdf/{{ b.pdf }}"
-   target="_blank"
-   class="btn btn-primary btn-sm">
-   Baca
-</a>
+        <div class="d-grid gap-1">
 
-<a href="https://ougnllblbwrzewqgskle.supabase.co/storage/v1/object/public/books/pdf/{{ b.pdf }}"
-   download
-   class="btn btn-success btn-sm">
-   Download
-</a>
+            <a href="https://ougnllblbwrzewqgskle.supabase.co/storage/v1/object/public/books/pdf/{{ b.pdf }}"
+               target="_blank"
+               class="btn btn-primary btn-sm">
+               Baca
+            </a>
 
-<a href="/favorite/{{ b.id }}"
-   class="btn btn-warning btn-sm">
-   Favorite
-</a>
+            <a href="https://ougnllblbwrzewqgskle.supabase.co/storage/v1/object/public/books/pdf/{{ b.pdf }}"
+               class="btn btn-success btn-sm">
+               Download
+            </a>
 
-<a href="/pinjam/{{ b.id }}"
-   class="btn btn-info btn-sm">
-   Pinjam
-</a>
+            <a href="/favorite/{{ b.id }}"
+               class="btn btn-warning btn-sm">
+               Favorite
+            </a>
+
+            <a href="/pinjam/{{ b.id }}"
+               class="btn btn-info btn-sm">
+               Pinjam
+            </a>
 
         </div>
 
@@ -120,9 +121,9 @@
 
 </div>
 
-        {% endfor %}
+{% endfor %}
 
-    </div>
+</div>
 
 </div>
 </body>
