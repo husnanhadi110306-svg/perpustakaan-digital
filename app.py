@@ -236,37 +236,32 @@ def dashboard():
     if 'login' not in session:
         return redirect('/login')
 
-    cursor.execute("SELECT * FROM buku")
-    buku = cursor.fetchall()
+    buku_res = supabase.table("buku").select("*").execute()
+    buku = buku_res.data
 
-    cursor.execute("SELECT COUNT(*) FROM buku")
-    total_buku = cursor.fetchone()[0]
+    total_buku = len(buku)
 
     cursor.execute("SELECT COUNT(*) FROM user")
     total_user = cursor.fetchone()[0]
+
     cursor.execute("SELECT id, username, nim, whatsapp FROM user")
     users = cursor.fetchall()
-    print(users)
-    cursor.execute("SELECT COUNT(*) FROM buku")
-    total_buku = cursor.fetchone()[0]
-
-    cursor.execute("SELECT COUNT(*) FROM user")
-    total_user = cursor.fetchone()[0]
 
     cursor.execute("SELECT COUNT(*) FROM favorite")
     total_favorite = cursor.fetchone()[0]
 
     cursor.execute("SELECT COUNT(*) FROM pinjam")
     total_pinjam = cursor.fetchone()[0]
+
     return render_template(
-    'dashboard.html',
-    buku=buku,
-    users=users,
-    total_buku=total_buku,
-    total_user=total_user,
-    total_favorite=total_favorite,
-    total_pinjam=total_pinjam
-)
+        "dashboard.html",
+        buku=buku,
+        users=users,
+        total_buku=total_buku,
+        total_user=total_user,
+        total_favorite=total_favorite,
+        total_pinjam=total_pinjam
+    )
 
 # =========================
 # DASHBOARD USER

@@ -152,33 +152,40 @@
     </thead>
 
     <tbody>
-        {% for b in buku %}
-        <tr>
-            <td>{{ b[0] }}</td>
-            <td>{{ b[1] }}</td>
-            <td>{{ b[2] }}</td>
+       {% for b in buku %}
+<tr>
+    <td>{{ b.id }}</td>
+    <td>{{ b.nama }}</td>
+    <td>{{ b.penulis }}</td>
 
-            <td>
-                <img src="{{ url_for('static', filename='uploads/' + b[3]) }}"
-                     width="80"
-                     height="100"
-                     style="object-fit: cover; border-radius: 5px;">
-            </td>
+    <td>
+        <img src="https://ougnllblbwrzewqgskle.supabase.co/storage/v1/object/public/books/gambar/{{ b.gambar }}"
+             width="80"
+             height="100"
+             style="object-fit: cover; border-radius: 5px;">
+    </td>
 
-            <td>
-                <a href="/edit/{{ b[0] }}" class="btn btn-warning btn-sm">
-                    Edit
-                </a>
+    <td>
+        <a href="/edit/{{ b.id }}" class="btn btn-warning btn-sm">
+            Edit
+        </a>
 
-                <a href="/hapus/{{ b[0] }}" class="btn btn-danger btn-sm">
-                    Hapus
-                </a>
-                <a href="/favorite/{{ b[0] }}" class="btn btn-info btn-sm">
-    Favorite
-</a>
-            </td>
-        </tr>
-        {% endfor %}
+        <a href="/hapus/{{ b.id }}" class="btn btn-danger btn-sm">
+            Hapus
+        </a>
+
+        <a href="/favorite/{{ b.id }}" class="btn btn-info btn-sm">
+            Favorite
+        </a>
+
+        <a href="https://ougnllblbwrzewqgskle.supabase.co/storage/v1/object/public/books/pdf/{{ b.pdf }}"
+           target="_blank"
+           class="btn btn-success btn-sm">
+            Baca PDF
+        </a>
+    </td>
+</tr>
+{% endfor %}
     </tbody>
 </table>
 </div>
