@@ -1,3 +1,5 @@
+from urllib import response
+
 from supabase import create_client
 
 SUPABASE_URL = "https://ougnllblbwrzewqgskle.supabase.co"
@@ -273,8 +275,8 @@ def user():
     if 'login' not in session:
         return redirect('/login')
 
-    cursor.execute("SELECT * FROM buku")
-    buku = cursor.fetchall()
+    response = supabase.table("buku").select("*").execute()
+    buku = response.data
 
     return render_template(
     'user.html',
