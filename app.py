@@ -278,6 +278,8 @@ def user():
     response = supabase.table("buku").select("*").execute()
     buku = response.data
 
+    total_buku = len(buku)
+
     cursor.execute(
         "SELECT COUNT(*) FROM favorite WHERE user_id=?",
         (session['id'],)
@@ -293,6 +295,7 @@ def user():
     return render_template(
         'user.html',
         buku_list=buku,
+        total_buku=total_buku,
         total_favorite=total_favorite,
         total_pinjam=total_pinjam
     )
