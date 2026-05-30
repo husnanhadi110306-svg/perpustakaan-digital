@@ -2,8 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard User</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -11,46 +10,61 @@
     <style>
 
         body{
-            background:#071739;
+            background: linear-gradient(
+            135deg,
+            #001f3f,
+            #002b5c,
+            #003d82);
+            min-height:100vh;
             color:white;
         }
 
-        .top-card{
+        .hero-card{
+            background: linear-gradient(
+            135deg,
+            #0d6efd,
+            #00c6ff);
             border:none;
-            border-radius:20px;
+            border-radius:25px;
+            box-shadow:0 10px 25px rgba(0,0,0,.3);
         }
 
-        .card-buku{
+        .stat-card{
+            border:none;
+            border-radius:20px;
+            box-shadow:0 8px 20px rgba(0,0,0,.2);
+        }
+
+        .book-card{
             background:#0d234f;
             border:none;
             border-radius:20px;
             overflow:hidden;
-            box-shadow:0 0 15px rgba(0,0,0,.4);
             transition:.3s;
+            box-shadow:0 0 15px rgba(0,0,0,.3);
         }
 
-        .card-buku:hover{
-            transform:translateY(-5px);
+        .book-card:hover{
+            transform:translateY(-8px);
         }
 
         .cover{
-            height:300px;
             width:100%;
+            height:260px;
             object-fit:cover;
         }
 
-        .btn-custom{
-            width:100%;
-            margin-top:5px;
-        }
-
-        .navbar{
-            background:#05122d;
+        .btn{
+            border-radius:12px;
         }
 
         .search-box{
             border-radius:15px;
             height:50px;
+        }
+
+        .navbar{
+            background:#05122d !important;
         }
 
     </style>
@@ -75,49 +89,77 @@
 
 <div class="container mt-4">
 
-    <div class="card bg-dark top-card mb-4">
+    <div class="card hero-card mb-4">
 
-        <div class="card-body">
+        <div class="card-body text-white">
 
             <h2>
-                Halo, {{ session.get['username'] }} 👋
+                👋 Selamat Datang,
+                {{ session['username'] }}
             </h2>
 
-            <p class="text-secondary mb-0">
-                Selamat datang di Perpustakaan Digital
+            <p class="mb-0">
+                Kelola buku favorit dan pinjaman Anda dengan mudah.
             </p>
 
         </div>
 
     </div>
 
-    <div class="row g-3 mb-4">
+    <div class="row text-center mb-4">
 
         <div class="col-4">
-            <div class="card bg-primary text-center top-card">
+
+            <div class="card stat-card bg-primary text-white">
+
                 <div class="card-body">
-                    <h6>Total Buku</h6>
-                    <h2>{{ buku_list|length }}</h2>
+
+                    <h2>📚</h2>
+
+                    <h4>{{ total_buku }}</h4>
+
+                    <small>Total Buku</small>
+
                 </div>
+
             </div>
+
         </div>
 
         <div class="col-4">
-            <div class="card bg-warning text-dark text-center top-card">
+
+            <div class="card stat-card bg-warning text-dark">
+
                 <div class="card-body">
-                    <h6>Favorite</h6>
-                    <h2>{{ total_favorit }}</h2>
+
+                    <h2>❤️</h2>
+
+                    <h4>{{ total_favorit }}</h4>
+
+                    <small>Favorite</small>
+
                 </div>
+
             </div>
+
         </div>
 
         <div class="col-4">
-            <div class="card bg-success text-center top-card">
+
+            <div class="card stat-card bg-success text-white">
+
                 <div class="card-body">
-                    <h6>Pinjam</h6>
-                    <h2>{{total_pinjam}}</h2>
+
+                    <h2>📖</h2>
+
+                    <h4>{{ total_pinjam }}</h4>
+
+                    <small>Dipinjam</small>
+
                 </div>
+
             </div>
+
         </div>
 
     </div>
@@ -125,15 +167,21 @@
     <div class="row mb-4">
 
         <div class="col-md-6 mb-2">
-            <a href="/favorite-list" class="btn btn-warning w-100">
+
+            <a href="/favorite-list"
+               class="btn btn-warning w-100">
                 ❤️ Favorite Saya
             </a>
+
         </div>
 
         <div class="col-md-6 mb-2">
-            <a href="/pinjam-list" class="btn btn-info w-100">
+
+            <a href="/pinjam-list"
+               class="btn btn-info w-100">
                 📚 Buku Dipinjam
             </a>
+
         </div>
 
     </div>
@@ -153,9 +201,9 @@
 
         {% for b in buku_list %}
 
-        <div class="col-12-mb-4">
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
 
-            <div class="card-buku h-100">
+            <div class="book-card h-100">
 
                 <img
                 src="https://ougnllblbwrzewqgskle.supabase.co/storage/v1/object/public/books/gambar/{{ b.gambar }}"
@@ -165,35 +213,51 @@
 
                     <h5>{{ b.nama }}</h5>
 
-                    <p class="text-light">
+                    <p>
                         ✍️ {{ b.penulis }}
                     </p>
 
-                    <a
-                    href="https://ougnllblbwrzewqgskle.supabase.co/storage/v1/object/public/books/pdf/{{ b.pdf }}"
-                    target="_blank"
-                    class="btn btn-primary btn-custom">
-                        📖 Baca Buku
-                    </a>
+                    <div class="d-grid gap-2">
 
-                    <a
-                    href="https://ougnllblbwrzewqgskle.supabase.co/storage/v1/object/public/books/pdf/{{ b.pdf }}"
-                    download
-                    class="btn btn-success btn-custom">
-                        ⬇ Download
-                    </a>
+                        <a
+                        href="https://ougnllblbwrzewqgskle.supabase.co/storage/v1/object/public/books/pdf/{{ b.pdf }}"
+                        target="_blank"
+                        class="btn btn-primary">
+                            📖 Baca Buku
+                        </a>
 
-                    <a
-                    href="/favorite/{{ b.id }}"
-                    class="btn btn-warning btn-custom">
-                        ❤️ Favorite
-                    </a>
+                        <a
+                        href="https://ougnllblbwrzewqgskle.supabase.co/storage/v1/object/public/books/pdf/{{ b.pdf }}"
+                        download
+                        class="btn btn-success">
+                            ⬇ Download
+                        </a>
 
-                    <a
-                    href="/pinjam/{{ b.id }}"
-                    class="btn btn-info btn-custom">
-                        📚 Pinjam
-                    </a>
+                        <div class="row">
+
+                            <div class="col-6">
+
+                                <a
+                                href="/favorite/{{ b.id }}"
+                                class="btn btn-warning w-100">
+                                    ❤️ Favorite
+                                </a>
+
+                            </div>
+
+                            <div class="col-6">
+
+                                <a
+                                href="/pinjam/{{ b.id }}"
+                                class="btn btn-info w-100">
+                                    📚 Pinjam
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
