@@ -332,7 +332,7 @@ def tambah():
 # EDIT
 # =========================
 
-@app.route('/edit/<int:id>', methods=['GET','POST'])
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
 def edit(id):
 
     if request.method == 'POST':
@@ -340,21 +340,23 @@ def edit(id):
         nama = request.form['nama']
         penulis = request.form['penulis']
 
-        cursor.execute("""
-        UPDATE buku
-        SET nama=?, penulis=?
-        WHERE id=?
-        """, (nama,penulis,id))
+        supabase.table("buku").update({
+            "nama": nama,
+            "penulis": penulis
+        }).eq("id", id).execute()
 
-        conn.commit()
+        flash("Buku berhasil diupdate")
 
         return redirect('/dashboard')
 
-    cursor.execute("SELECT * FROM buku WHERE id=?", (id,))
-    buku = cursor.fetchone()
+    res = supabase.table("buku").select("*").eq("id", id).execute()
 
-    return render_template('edit.html', buku=buku)
+    buku = res.data[0]
 
+    return render_template(
+        "edit.html",
+        buku=buku
+    )
 # =========================
 # HAPUS
 # =========================
@@ -362,8 +364,9 @@ def edit(id):
 @app.route('/hapus/<int:id>')
 def hapus(id):
 
-    cursor.execute("DELETE FROM buku WHERE id=?", (id,))
-    conn.commit()
+    supabase.table("buku").delete().eq("id", id).execute()
+
+    flash("Buku berhasil dihapus")
 
     return redirect('/dashboard')
 

@@ -21,7 +21,7 @@
             type="text"
             name="nama"
             class="form-control"
-            value="{{ buku[1] }}">
+            value="{{ buku.nama }}">
         </div>
 
         <div class="mb-3">
@@ -31,12 +31,16 @@
             type="text"
             name="penulis"
             class="form-control"
-            value="{{ buku[2] }}">
+            value="{{ buku.penulis }}">
         </div>
 
         <button class="btn btn-primary">
             Update Buku
         </button>
+
+        <a href="/dashboard" class="btn btn-secondary">
+            Kembali
+        </a>
 
     </form>
 
