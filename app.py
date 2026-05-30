@@ -364,17 +364,6 @@ def edit(id):
 @app.route('/hapus/<int:id>')
 def hapus(id):
 
-    hasil = supabase.table("buku").delete().eq("id", id).execute()
-
-    print(hasil)
-
-    flash("Buku berhasil dihapus")
-
-    return redirect('/dashboard')
-
-@app.route('/hapus/<int:id>')
-def hapus(id):
-
     print("ID YANG DIHAPUS =", id)
 
     hasil = supabase.table("buku").delete().eq("id", id).execute()
