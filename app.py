@@ -401,34 +401,26 @@ def hapus(id):
 @app.route('/favorite/<int:id>')
 def favorite(id):
 
-    print("FAVORITE DIKLIK")
-    print("USER =", session['id'])
-    print("BUKU =", id)
+    try:
 
-    user_id = session['id']
+        print("FAVORITE DIKLIK")
+        print("USER =", session['id'])
+        print("BUKU =", id)
 
-    cursor.execute("""
-                   
-    SELECT * FROM favorite
-    WHERE user_id=? AND buku_id=?
-    """, (user_id, id))
+        user_id = session['id']
 
-    cek = cursor.fetchone()
+        cursor.execute("""
+        INSERT INTO favorite(user_id,buku_id)
+        VALUES(?,?)
+        """, (user_id, id))
 
-    if cek:
-        flash('Buku sudah ada di favorite')
-        return redirect('/user')
+        conn.commit()
 
-    cursor.execute("""
-    INSERT INTO favorite(user_id,buku_id)
-    VALUES(?,?)
-    """, (user_id, id))
+        print("BERHASIL DISIMPAN")
 
-    conn.commit()
+    except Exception as e:
 
-    print("BERHASIL DISIMPAN")
-
-    flash('Ditambahkan ke favorite')
+        print("ERROR =", e)
 
     return redirect('/user')
 
