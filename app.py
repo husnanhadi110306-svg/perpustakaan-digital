@@ -401,9 +401,14 @@ def hapus(id):
 @app.route('/favorite/<int:id>')
 def favorite(id):
 
+    print("FAVORITE DIKLIK")
+    print("USER =", session['id'])
+    print("BUKU =", id)
+
     user_id = session['id']
 
     cursor.execute("""
+                   
     SELECT * FROM favorite
     WHERE user_id=? AND buku_id=?
     """, (user_id, id))
