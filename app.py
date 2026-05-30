@@ -513,9 +513,13 @@ def favorite_list():
     if ids:
         res = supabase.table("buku").select("*").execute()
 
-        for b in res.data:
-            if b["id"] in ids:
-                favorit.append(b)
+    for b in res.data:
+        if str(b["id"]) in [str(x) for x in ids]:
+            favorit.append(b)
+
+            print("IDS SQLITE =", ids)
+            print("DATA SUPABASE =", res.data)
+            print("FAVORIT =", favorit)
 
     return render_template(
         "favorite.html",
