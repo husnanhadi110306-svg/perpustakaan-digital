@@ -426,6 +426,8 @@ def favorite(id):
 
     conn.commit()
 
+    print("BERHASIL DISIMPAN")
+
     flash('Ditambahkan ke favorite')
 
     return redirect('/user')
