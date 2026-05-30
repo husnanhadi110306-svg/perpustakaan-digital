@@ -80,7 +80,7 @@
         <div class="card-body">
 
             <h2>
-                Halo, {{ session['username'] }} 👋
+                Halo, {{ session.get['username'] }} 👋
             </h2>
 
             <p class="text-secondary mb-0">
@@ -106,7 +106,7 @@
             <div class="card bg-warning text-dark text-center top-card">
                 <div class="card-body">
                     <h6>Favorite</h6>
-                    <h2>❤️</h2>
+                    <h2>{{ total_favorit }}</h2>
                 </div>
             </div>
         </div>
@@ -115,7 +115,7 @@
             <div class="card bg-success text-center top-card">
                 <div class="card-body">
                     <h6>Pinjam</h6>
-                    <h2>📚</h2>
+                    <h2>{{total_pinjam}}</h2>
                 </div>
             </div>
         </div>
@@ -153,7 +153,7 @@
 
         {% for b in buku_list %}
 
-        <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="col-12-mb-4">
 
             <div class="card-buku h-100">
 
